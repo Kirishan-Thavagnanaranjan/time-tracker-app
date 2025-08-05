@@ -4,14 +4,10 @@ import { Chart as chartJS,ArcElement, Tooltip,Legend} from 'chart.js'
 chartJS.register(ArcElement,Tooltip,Legend);
 
 interface Props{
-  data: {activity:string,hours:number}[]
+  data: {activity:string,hours:number,color:string}[]
 
 }
 
-const COLORS = [
-  '#ff6384', '#36A2b3', '#ffce56', '#340399', '#a788fa',
-  '#FF9F40', '#4BC0C0', '#9966FF', '#C9CBCF', '#FF6384',
-]
 
 const TimeChart = ({data}:Props) => {
     if (data.length === 0) {
@@ -23,7 +19,7 @@ const TimeChart = ({data}:Props) => {
       {
         label:"hours",
         data: data.map((d) => d.hours),
-        backgroundColor: data.map((_, i) => COLORS[i % COLORS.length]),
+        backgroundColor: data.map((d) => d.color),
         borderWidth:1,
       },
     ],

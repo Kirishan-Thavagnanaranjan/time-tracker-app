@@ -3,12 +3,14 @@ import { Input } from './ui/input'
 import { Button } from './ui/button'
 
 interface Props {
-    onAdd: (activity:string, hours:number) => void
+    onAdd: (activity:string, hours:number,color:string) => void
 }
 
 const TimeForm = ({onAdd}:Props) => {
     const [activity,setActivity] = useState("");
     const [hours, setHours] = useState("");
+    const [color, setColor] = useState('#ff6384');
+
 
     const handleSubmit= () => {
         if(!activity.trim() || !hours) {
@@ -16,7 +18,7 @@ const TimeForm = ({onAdd}:Props) => {
           return;
         }
 
-        onAdd(activity , Number(hours));
+        onAdd(activity , Number(hours), color);
 
         setActivity("");
         setHours("");
@@ -36,6 +38,17 @@ const TimeForm = ({onAdd}:Props) => {
         placeholder='Hours (e.g 5)'
         value={hours}
         onChange={(e) => setHours(e.target.value)}/>
+
+        <label className="block">
+  Color:
+  <input
+    type="color"
+    value={color}
+    onChange={(e) => setColor(e.target.value)}
+    className="ml-2"
+  />
+</label>
+
 
         <Button className='w-full' onClick={handleSubmit}>Add Activity</Button>
     </div>
