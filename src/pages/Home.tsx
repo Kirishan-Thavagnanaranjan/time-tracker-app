@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react';
 import TimeForm from '@/components/TimeForm'
 import TimeChart from '@/components/TimeChart';
 const Home = () => {
