@@ -35,6 +35,8 @@ const TimeForm = ({onAdd}:Props) => {
 
         <Input
         type='number'
+        min={0}
+        max={24}
         placeholder='Hours (e.g 5)'
         value={hours}
         onChange={(e) => setHours(e.target.value)}/>
@@ -51,6 +53,7 @@ const TimeForm = ({onAdd}:Props) => {
 
 
         <Button className='w-full' onClick={handleSubmit}>Add Activity</Button>
+        
     </div>
   )
 }

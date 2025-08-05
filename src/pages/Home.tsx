@@ -1,12 +1,36 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import TimeForm from '@/components/TimeForm'
 import TimeChart from '@/components/TimeChart';
 const Home = () => {
     
     const [data, setData] = useState<{activity:string;hours:number;color: string}[]>([]);
+
+    useEffect(() => {
+    const savedData = localStorage.getItem('timeData');
+    if (savedData) {
+      setData(JSON.parse(savedData));
+    }
+  }, []);
+
+   useEffect(() => {
+  if (data.length > 0) {
+    localStorage.setItem('timeData', JSON.stringify(data));
+  }
+}, [data]);
+
+
+  
     const handleAdd = (activity:string, hours:number, color:string) =>{
         setData((prev) => [...prev, {activity,hours,color}] );
     };
+
+    const handleReset = () => {
+    if (confirm('Are you sure you want to clear all activity data?')) {
+      setData([]);
+      localStorage.removeItem('timeData');
+    }
+  };
+
     const totalHours = data.reduce((sum, d) => sum + d.hours, 0);
 
 
@@ -23,6 +47,15 @@ const Home = () => {
 
       <TimeForm onAdd={handleAdd}/>
       <TimeChart data={data}/>
+      {data.length > 0 && (
+        <button
+          onClick={handleReset}
+          className="w-full text-white bg-red-500 hover:bg-red-600 px-4 py-2 rounded"
+        >
+          Reset All
+        </button>
+      )}
+      
     </div>
   )
 }
